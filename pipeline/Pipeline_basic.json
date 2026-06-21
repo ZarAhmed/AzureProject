@@ -1,6 +1,7 @@
 {
-	"name": "pipeline1",
+	"name": "Pipeline_basic",
 	"properties": {
+		"description": "It has basic pipeline that handles incremental, backfill and data load simultaneously. But the table names has to be manually added. ",
 		"activities": [
 			{
 				"name": "AzureSQLToLake",
@@ -109,7 +110,10 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"container": "bronze",
-							"folder": "cdc",
+							"folder": {
+								"value": "@{pipeline().parameters.Table}_cdc",
+								"type": "Expression"
+							},
 							"file": "cdc.json"
 						}
 					},
@@ -272,7 +276,10 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"container": "bronze",
-										"folder": "cdc",
+										"folder": {
+											"value": "@{pipeline().parameters.Table}_cdc",
+											"type": "Expression"
+										},
 										"file": "empty.json"
 									}
 								}
@@ -283,7 +290,10 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"container": "bronze",
-										"folder": "cdc",
+										"folder": {
+											"value": "@{pipeline().parameters.Table}_cdc",
+											"type": "Expression"
+										},
 										"file": "cdc.json"
 									}
 								}
